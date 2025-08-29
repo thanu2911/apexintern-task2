@@ -4,46 +4,190 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Internship Task 2</title>
-  <link rel="stylesheet" href="style.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: linear-gradient(to right, #74ebd5, #ACB6E5);
+      color: #333;
+    }
+
+    header {
+      background: #4CAF50;
+      color: white;
+      padding: 1rem;
+      text-align: center;
+    }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #333;
+      padding: 0.5rem;
+    }
+
+    nav a {
+      color: white;
+      margin: 0 1rem;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    nav a:hover {
+      color: #FFD700;
+    }
+
+    main {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      padding: 20px;
+    }
+
+    section {
+      background: white;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    }
+
+    h2 {
+      color: #4CAF50;
+    }
+
+    /* Contact form */
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    form input, form button {
+      margin: 8px 0;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+
+    form button {
+      background: #4CAF50;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    form button:hover {
+      background: #45a049;
+    }
+
+    /* To-Do list */
+    #todo-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    #todo-list li {
+      padding: 10px;
+      background: #f4f4f4;
+      margin: 5px 0;
+      border-radius: 5px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    #todo-list li button {
+      background: red;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+      padding: 5px 8px;
+    }
+
+    #todo-list li button:hover {
+      background: darkred;
+    }
+
+    /* Responsive */
+    @media(max-width: 768px) {
+      main {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-  <!-- Navigation -->
-  <nav class="navbar">
-    <h1>My Internship Task 2</h1>
-    <ul>
-      <li><a href="#form">Contact Form</a></li>
-      <li><a href="#todo">To-Do List</a></li>
-    </ul>
+  <header>
+    <h1>Internship Task 2 - Web Development</h1>
+  </header>
+
+  <nav>
+    <a href="#contact">Contact Form</a>
+    <a href="#todo">To-Do List</a>
   </nav>
 
-  <!-- Contact Form -->
-  <section id="form">
-    <h2>Contact Form</h2>
-    <form id="contactForm">
-      <label for="name">Name:</label>
-      <input type="text" id="name" placeholder="Enter your name">
+  <main>
+    <!-- Contact Form -->
+    <section id="contact">
+      <h2>Contact Us</h2>
+      <form id="contactForm">
+        <input type="text" id="name" placeholder="Enter your name" required>
+        <input type="email" id="email" placeholder="Enter your email" required>
+        <input type="text" id="message" placeholder="Enter your message" required>
+        <button type="submit">Submit</button>
+      </form>
+      <p id="formMsg"></p>
+    </section>
 
-      <label for="email">Email:</label>
-      <input type="email" id="email" placeholder="Enter your email">
-
-      <label for="message">Message:</label>
-      <textarea id="message" placeholder="Write your message"></textarea>
-
-      <button type="submit">Submit</button>
-    </form>
-    <p id="formMessage" class="error"></p>
-  </section>
-
-  <!-- To-Do List -->
-  <section id="todo">
-    <h2>To-Do List</h2>
-    <div class="todo-container">
-      <input type="text" id="taskInput" placeholder="Enter a new task">
+    <!-- To-Do List -->
+    <section id="todo">
+      <h2>To-Do List</h2>
+      <input type="text" id="taskInput" placeholder="Enter new task">
       <button onclick="addTask()">Add Task</button>
-    </div>
-    <ul id="taskList"></ul>
-  </section>
+      <ul id="todo-list"></ul>
+    </section>
+  </main>
 
-  <script src="script.js"></script>
+  <script>
+    // Contact Form Validation
+    document.getElementById("contactForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const name = document.getElementById("name").value.trim();
+      const email = document.getElementById("email").value.trim();
+      const message = document.getElementById("message").value.trim();
+      const formMsg = document.getElementById("formMsg");
+
+      if (!name || !email || !message) {
+        formMsg.style.color = "red";
+        formMsg.textContent = "❌ Please fill all fields!";
+      } else if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+        formMsg.style.color = "red";
+        formMsg.textContent = "❌ Enter a valid email address!";
+      } else {
+        formMsg.style.color = "green";
+        formMsg.textContent = "✅ Form submitted successfully!";
+      }
+    });
+
+    // To-Do List
+    function addTask() {
+      const taskInput = document.getElementById("taskInput");
+      const taskText = taskInput.value.trim();
+      if (taskText === "") return;
+
+      const li = document.createElement("li");
+      li.textContent = taskText;
+
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "X";
+      removeBtn.onclick = () => li.remove();
+
+      li.appendChild(removeBtn);
+      document.getElementById("todo-list").appendChild(li);
+
+      taskInput.value = "";
+    }
+  </script>
 </body>
 </html>
+
