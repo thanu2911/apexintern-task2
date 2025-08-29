@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Internship Task 2</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Navigation -->
+  <nav class="navbar">
+    <h1>My Internship Task 2</h1>
+    <ul>
+      <li><a href="#form">Contact Form</a></li>
+      <li><a href="#todo">To-Do List</a></li>
+    </ul>
+  </nav>
+
+  <!-- Contact Form -->
+  <section id="form">
+    <h2>Contact Form</h2>
+    <form id="contactForm">
+      <label for="name">Name:</label>
+      <input type="text" id="name" placeholder="Enter your name">
+
+      <label for="email">Email:</label>
+      <input type="email" id="email" placeholder="Enter your email">
+
+      <label for="message">Message:</label>
+      <textarea id="message" placeholder="Write your message"></textarea>
+
+      <button type="submit">Submit</button>
+    </form>
+    <p id="formMessage" class="error"></p>
+  </section>
+
+  <!-- To-Do List -->
+  <section id="todo">
+    <h2>To-Do List</h2>
+    <div class="todo-container">
+      <input type="text" id="taskInput" placeholder="Enter a new task">
+      <button onclick="addTask()">Add Task</button>
+    </div>
+    <ul id="taskList"></ul>
+  </section>
+
+  <script src="script.js"></script>
+</body>
+</html>
